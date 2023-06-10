@@ -1,0 +1,26 @@
+name: aoc_01
+services:
+  rust:
+    user: "${UID:-1000}:${GID:-1000}" #don't run as root by default to prevent permission conflicts
+    image: rust:latest
+    working_dir: /app
+    volumes:
+      - ./rust:/app
+      - ./list:/app/list
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+  php:
+    user: "${UID:-1000}:${GID:-1000}" #don't run as root by default to prevent permission conflicts
+    image: webdevops/php-dev:8.2
+    working_dir: /app
+    volumes:
+      - ./php:/app
+      - ./list:/app/list
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    # cap and privileged needed for slowlog
+    cap_add:
+      - SYS_PTRACE
+    privileged: true
+    env_file:
+      - ./php/environment.yml

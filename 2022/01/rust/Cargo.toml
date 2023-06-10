@@ -1,0 +1,4 @@
+[package]
+name = "aoc_01"
+version = "0.1.0"
+authors = ["Bastian Schwarz <bastian@codename-php.de>"]
